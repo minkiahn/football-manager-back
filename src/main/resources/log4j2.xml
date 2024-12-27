@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration status="DEBUG">
+
+<Appenders>
+    <!-- 콜솔 -->
+    <Console name="console" target="SYSTEM_OUT">
+        <PatternLayout pattern="%d{yyyy-MM-dd hh:mm:ss} %5p [%c] %m%n"/>
+    </Console>
+
+    <!-- 파일  -->
+    <RollingFile name ="logFile">
+        <FileName>./logs/mkahn_backend.log</FileName>
+        <FilePattern>./logs/%d{yyyy-MM-dd-hh-mm}/mkahn_backend.zip</FilePattern>
+        <PatternLayout>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %m%n</Pattern>
+        </PatternLayout>
+        <Policies>
+            <TimeBasedTriggeringPolicy interval = "7200" modulate = "true"/>
+            <DefaultRolloverStrategy max="10" fileIndex="min"/>
+        </Policies>
+    </RollingFile>
+
+    <RollingFile name ="logFileError">
+        <FileName>./logs/mkahn_backend_error.log</FileName>
+        <FilePattern>./logs/%d{yyyy-MM-dd-hh-mm}/mkahn_backend_error.zip</FilePattern>
+        <PatternLayout>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %m%n</Pattern>
+        </PatternLayout>
+        <Policies>
+            <TimeBasedTriggeringPolicy interval = "7200" modulate = "true"/>
+            <DefaultRolloverStrategy max="5" fileIndex="min"/>
+        </Policies>
+    </RollingFile>
+
+</Appenders>
+
+<loggers>
+    <root level="debug" additivity="true">
+        <AppenderRef ref="console" level = "INFO"/>
+        <AppenderRef ref="logFile" level = "INFO"/>
+        <AppenderRef ref="logFileError" level = "ERROR"/>
+    </root>
+
+   <Logger name="jdbc.sqlonly" additivity="false">
+         <AppenderRef ref="console" level = "DEBUG"/>
+    </Logger>
+
+</loggers>
+
+</configuration>
