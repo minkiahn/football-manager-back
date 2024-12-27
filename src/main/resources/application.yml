@@ -42,5 +42,5 @@ spring:
         default_batch_fetch_size: 100
 
 token:
-  access: 604800016 # 밀리초, 1주일
+  access: 604800016 # 밀리초, 1주일1
   refresh: 2629800000 # 한달
