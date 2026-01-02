@@ -34,4 +34,7 @@ public class Member{
     @Column
     private String position2;
 
+    @Column(nullable = false)
+    private String status;
+
 }

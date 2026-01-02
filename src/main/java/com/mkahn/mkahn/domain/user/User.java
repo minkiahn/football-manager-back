@@ -2,6 +2,7 @@ package com.mkahn.mkahn.domain.user;
 import com.mkahn.mkahn.constant.Constant;
 import com.mkahn.mkahn.constant.EnumType;
 import com.mkahn.mkahn.domain.BaseTimeEntity;
+import com.mkahn.mkahn.domain.team.Team;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,10 @@ public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
+    @JoinColumn(name = "teamId")
+    @ManyToOne
+    private Team team;
 
     @Column(nullable = false)
     private String userEmail;

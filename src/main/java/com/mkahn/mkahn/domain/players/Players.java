@@ -54,4 +54,7 @@ public class Players {
     @ManyToOne
     private User writer;
 
+    @Column(nullable = false)
+    private String status;
+
 }

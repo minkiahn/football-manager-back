@@ -45,6 +45,9 @@ public class Game {
     @Column
     private Integer teamBScore;
 
+    @Column(nullable = false)
+    private String status;
+
     @JoinColumn(name = "writer")
     @ManyToOne
     private User writer;
