@@ -45,7 +45,7 @@ public class User extends BaseTimeEntity {
     private String refreshToken;
 
     @Builder
-    public User(Long userId, String userEmail, String nickName, String status, String pwd, String token, String refreshToken) {
+    public User(Long userId, String userEmail, String nickName, String status, String pwd, String token, String refreshToken, Team team) {
         this.userId = userId;
         this.userEmail = userEmail;
         this.nickName = nickName;
@@ -53,6 +53,7 @@ public class User extends BaseTimeEntity {
         this.pwd = pwd;
         this.token = token;
         this.refreshToken = refreshToken;
+        this.team = team;
     }
 
     public void updateToken(String token){

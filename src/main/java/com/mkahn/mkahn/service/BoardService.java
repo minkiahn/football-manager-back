@@ -25,8 +25,7 @@ public class BoardService {
     @Transactional
     public BoardDto save(BoardDto boardDto) {
         Board boardEntity = boardMapper.convertToEntity(boardDto);
-        BoardDto boardDtoResult = boardMapper.convertToDto(boardRepository.save(boardEntity));
-        return boardDtoResult;
+        return boardMapper.convertToDto(boardRepository.save(boardEntity));
     }
 
     @Transactional

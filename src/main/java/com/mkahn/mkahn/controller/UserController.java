@@ -1,6 +1,5 @@
 package com.mkahn.mkahn.controller;
 
-import com.mkahn.mkahn.domain.user.User;
 import com.mkahn.mkahn.dto.UserDto;
 import com.mkahn.mkahn.service.UserService;
 import lombok.RequiredArgsConstructor;

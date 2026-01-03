@@ -45,6 +45,9 @@ public class Game {
     @Column
     private Integer teamBScore;
 
+    @Column
+    private String vsName;
+
     @Column(nullable = false)
     private String status;
 

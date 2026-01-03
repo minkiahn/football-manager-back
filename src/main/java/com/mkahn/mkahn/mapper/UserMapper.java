@@ -19,6 +19,8 @@ public interface UserMapper {
     @Mapping(source = "token", target = "token")
     @Mapping(source = "regDt", target = "regDt")
     @Mapping(source = "updateDt", target = "updateDt")
+    @Mapping(source = "team.id", target = "teamId")
+    @Mapping(source = "team.name", target = "teamName")
     UserDto convertToDto(User user);
 
     @Mapping(source = "userId", target = "userId")
@@ -29,6 +31,8 @@ public interface UserMapper {
     @Mapping(source = "token", target = "token")
     @Mapping(source = "regDt", target = "regDt")
     @Mapping(source = "updateDt", target = "updateDt")
+    @Mapping(source = "team.id", target = "teamId")
+    @Mapping(source = "team.name", target = "teamName")
     List<UserDto> convertToDtoList(List<User> boardList);
 
     @Mapping(source = "userId", target = "userId")
@@ -37,6 +41,7 @@ public interface UserMapper {
     @Mapping(source = "pwd", target = "pwd")
     @Mapping(source = "status", target = "status")
     @Mapping(source = "token", target = "token")
+    @Mapping(source = "teamId", target = "team.id")
     User convertToEntity(UserDto userDto);
 
 
