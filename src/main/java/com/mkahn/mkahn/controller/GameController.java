@@ -19,9 +19,9 @@ public class GameController {
 
     private final GameService gameService;
 
-    @GetMapping(path = "/list")
-    public Object getList() {
-        return gameService.list();
+    @GetMapping(path = "/list/team/{id}")
+    public Object getList(@PathVariable Long id) {
+        return gameService.list(id);
     }
 
     @PostMapping

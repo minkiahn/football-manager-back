@@ -17,9 +17,10 @@ public class GameService {
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
 
-    public List<GameDto> list(){
+    public List<GameDto> list(Long teamId){
         Sort sort = Sort.by(Sort.Direction.DESC, "matchDt");
-        return gameMapper.convertToDtoList(gameRepository.findAll(sort));
+        // 검색조건에 teamId 추가
+        return gameMapper.convertToDtoList(gameRepository.findAllByTeamId(teamId, sort));
     }
 
     public GameDto save(GameDto gameDto) {
