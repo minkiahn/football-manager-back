@@ -39,11 +39,10 @@ public class GameService {
         game.setTime(gameDto.getTime());
         game.setPlace(gameDto.getPlace());
         game.setType(gameDto.getType());
-        game.setPlayersCountType(gameDto.getType());
+        game.setPlayersCountType(gameDto.getPlayersCountType());
 
-        // 필요한 필드 더 있으면 여기서 세팅
-
-        return gameMapper.convertToDto(game);
+        Game savedGame = gameRepository.save(game);
+        return gameMapper.convertToDto(savedGame);
     }
 
     @Transactional
