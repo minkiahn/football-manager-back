@@ -1,5 +1,6 @@
 package com.mkahn.mkahn.service;
 
+import com.mkahn.mkahn.config.UserContext;
 import com.mkahn.mkahn.domain.game.Game;
 import com.mkahn.mkahn.domain.game.GameRepository;
 import com.mkahn.mkahn.dto.GameDto;
@@ -17,15 +18,16 @@ public class GameService {
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
 
-    public List<GameDto> list(Long teamId){
+    public List<GameDto> list(){
         Sort sort = Sort.by(Sort.Direction.DESC, "matchDt");
         // 검색조건에 teamId 추가
-        return gameMapper.convertToDtoList(gameRepository.findAllByTeamId(teamId, sort));
+        return gameMapper.convertToDtoList(gameRepository.findAllByTeamId(UserContext.getUser().getTeamId(), sort));
     }
 
     public GameDto save(GameDto gameDto) {
         Game gameEntity = gameMapper.convertToEntity(gameDto);
         gameEntity.setStatus("정상");
+        gameEntity.getTeam().setId(UserContext.getUser().getTeamId());
         Game savedGame = gameRepository.save(gameEntity);
         return gameMapper.convertToDto(savedGame);
     }

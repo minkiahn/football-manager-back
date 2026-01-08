@@ -28,8 +28,8 @@ public class UserService {
         userDto.setPwd(bCryptPasswordEncoder.encode(userDto.getPwd()));
         userDto.setStatus(EnumType.UserStatus.REQUEST.getName());
         Optional<User> optUser = Optional.of(userRepository.save(userMapper.convertToEntity(userDto)));
-        String token = jwtService.createAccessToken(optUser.get().getUserId(), optUser.get().getNickName());
-        optUser.get().updateToken(token);
+        //String token = jwtService.createAccessToken(optUser.get().getUserId(), optUser.get().getNickName());
+        //optUser.get().updateToken(token);
         return userMapper.convertToDto(optUser.orElse(null));
     }
 
@@ -67,7 +67,7 @@ public class UserService {
         Optional<User>  user = userRepository.findByUserEmail(userMapper.convertToEntity(userDto).getUserEmail());
         if(user.isPresent() && bCryptPasswordEncoder.matches(userDto.getPwd(), user.get().getPwd())){
             if(user.get().getStatus().equals(EnumType.UserStatus.NORMAL.getName())){
-                String token = jwtService.createAccessToken(user.get().getUserId(), user.get().getNickName());
+                String token = jwtService.createAccessToken(user.get().getUserId(), user.get().getNickName(), user.get().getTeam().getId());
                 user.get().updateToken(token);
             }else{
                 user.get().updateToken("");

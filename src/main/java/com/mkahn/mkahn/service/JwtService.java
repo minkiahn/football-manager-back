@@ -33,14 +33,16 @@ public class JwtService {
     private static final String USER_ID = "userId";
     private static final String REG_DATE = "regDate";
     private static final String NICK_NAME = "nickName";
+    private static final String TEAM_ID = "teamId";
     private static final String LAST_LOGIN_DATE = "lastLoginDate";
 
-    public String createAccessToken(long userId, String userNm) {
+    public String createAccessToken(long userId, String userNm, Long teamId) {
         String accessJwtToken = Jwts.builder().setHeaderParam("type","JWT")
                 .setHeaderParam(REG_DATE,System.currentTimeMillis())
                 .setExpiration(new Date(System.currentTimeMillis() + accessExpiration))
                 .claim(USER_ID, userId)
                 .claim(NICK_NAME, userNm)
+                .claim(TEAM_ID, teamId)
                 .signWith(SignatureAlgorithm.HS256, this.generateKey()).compact();
         log.info("---------------------------Create Access Token----------------------------------");
         log.info("AccessJwtToken : {}",accessJwtToken);
@@ -79,10 +81,12 @@ public class JwtService {
 
             long userId = (Integer) claim.get(USER_ID);
             String nickName = (String) claim.get(NICK_NAME);
+            long teamId = (Integer) claim.get(TEAM_ID);
 
 
             user.setUserId(userId);
             user.setNickName(nickName);
+            user.setTeamId(teamId);
 
             return user;
         }catch (Exception e) {
