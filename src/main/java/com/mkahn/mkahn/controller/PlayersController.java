@@ -24,6 +24,11 @@ public class PlayersController {
         return playersService.addPlayer(dto);
     }
 
+    @PatchMapping("/{playerId}")
+    public PlayersDto updateResult(@RequestBody PlayersDto dto, @PathVariable Long playerId) {
+        return playersService.updateResult(dto, playerId);
+    }
+
     @DeleteMapping("/{playerId}")
     public void delete(@PathVariable Long playerId) {
         playersService.delete(playerId);

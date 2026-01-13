@@ -10,7 +10,7 @@ spring:
     # url: jdbc:mysql://mkahn-database-1.ckvvvpaapwca.us-east-1.rds.amazonaws.com:3306/mkahnDB?serverTimezone=Asia/Seoul&autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8
 
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy #쿼리 파라메터를 보기 위해 사용
-    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/mkahnDB?serverTimezone=Asia/Seoul&autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/mkahnDB?serverTimezone=Asia/Seoul&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8
 
     username: mkahn
     password: 1234qwer
@@ -33,7 +33,7 @@ spring:
     open-in-view: false # transaction commit시 영속성 종료, true: api가 종료되거나 화면까지 유지
     show-sql: true
     hibernate:
-      ddl-auto: none # create, updata, none
+      ddl-auto: update # create, update, none
       #naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:

@@ -34,6 +34,11 @@ public class GameController {
         return gameService.update(gameDto, id);
     }
 
+    @PatchMapping("/{id}/result")
+    public GameDto updateGameResult(@RequestBody GameDto gameDto, @PathVariable Long id) throws Exception {
+        return gameService.updateResult(gameDto, id);
+    }
+
     @DeleteMapping("/{id}")
     public boolean deleteGame(@PathVariable Long id){
         try {

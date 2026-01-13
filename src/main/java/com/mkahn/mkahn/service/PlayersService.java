@@ -6,6 +6,7 @@ import com.mkahn.mkahn.domain.players.PlayersRepository;
 import com.mkahn.mkahn.dto.PlayersDto;
 import com.mkahn.mkahn.mapper.PlayersMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,10 +23,21 @@ public class PlayersService {
      * 게임 참가자 목록 조회
      */
     public List<PlayersDto> list(Long gameId) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "name");
         return playersMapper.toDtoList(
-                playersRepository.findAllByGameIdAndTeamId(gameId, UserContext.getUser().getTeamId())
+                playersRepository.findAllByGameIdAndTeamId(gameId, UserContext.getUser().getTeamId(), sort)
         );
     }
+
+    @Transactional
+    public PlayersDto updateResult(PlayersDto dto, Long playerId) {
+        Players players = playersRepository.findById(playerId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 참가자입니다."));
+        players.setGoal(dto.getGoal());
+        players.setAssist(dto.getAssist());
+        playersRepository.save(players);
+        return dto;
+    };
 
     /**
      * 참가자 등록 / 수정 (회원 / 용병 공통)

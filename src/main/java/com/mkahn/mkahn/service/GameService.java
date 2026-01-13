@@ -48,6 +48,19 @@ public class GameService {
     }
 
     @Transactional
+    public GameDto updateResult(GameDto gameDto, Long gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new IllegalArgumentException("Game not found. id=" + gameId));
+
+        game.setTeamAScore(gameDto.getTeamAScore());
+        game.setTeamBScore(gameDto.getTeamBScore());
+        game.setStatus(gameDto.getStatus());
+
+        Game savedGame = gameRepository.save(game);
+        return gameMapper.convertToDto(savedGame);
+    }
+
+    @Transactional
     public void delete(Long id){
         gameRepository.deleteById(id);
     }
