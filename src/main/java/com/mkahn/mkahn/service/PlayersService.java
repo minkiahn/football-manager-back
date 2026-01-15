@@ -18,6 +18,7 @@ public class PlayersService {
 
     private final PlayersRepository playersRepository;
     private final PlayersMapper playersMapper;
+    private final QuaterService quaterService;
 
     /**
      * 게임 참가자 목록 조회
@@ -76,9 +77,14 @@ public class PlayersService {
 
             // 공통 필드 서버에서 세팅
             players.setStatus("정상");
+
+
         }
 
         Players saved = playersRepository.save(players);
+        if (dto.getId() == null) {
+            quaterService.createDefaultQuaters(saved.getId());
+        }
         return playersMapper.toDto(saved);
     }
     /**
@@ -86,6 +92,8 @@ public class PlayersService {
      */
     @Transactional
     public void delete(Long playerId) {
+        quaterService.deleteByPlayer(playerId);
         playersRepository.deleteById(playerId);
     }
+
 }
