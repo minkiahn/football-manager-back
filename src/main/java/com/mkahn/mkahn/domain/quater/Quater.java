@@ -22,7 +22,7 @@ public class Quater {
 
     /** 매치 플레이어 */
     @JoinColumn(name = "players_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Players players;
 
     /** 쿼터 번호 (1~4) */

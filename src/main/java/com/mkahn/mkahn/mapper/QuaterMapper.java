@@ -16,6 +16,7 @@ public interface QuaterMapper {
     @Mapping(source = "players.position1", target = "playerPosition1")
     @Mapping(source = "players.position2", target = "playerPosition2")
     @Mapping(source = "players.teamABType", target = "playerTeamABType")
+    @Mapping(source = "players.memberId", target = "playerMemberId")
     QuaterDto toDto(Quater quarter);
 
     @Mapping(source = "players.id", target = "playerId")
@@ -23,6 +24,7 @@ public interface QuaterMapper {
     @Mapping(source = "players.position1", target = "playerPosition1")
     @Mapping(source = "players.position2", target = "playerPosition2")
     @Mapping(source = "players.teamABType", target = "playerTeamABType")
+    @Mapping(source = "players.memberId", target = "playerMemberId")
     List<QuaterDto> toDtoList(List<Quater> quarters);
 
     /* DTO → Entity */

@@ -23,4 +23,5 @@ public class QuaterDto {
     private String playerPosition1;
     private String playerPosition2;
     private String playerTeamABType;
+    private Long playerMemberId;
 }
