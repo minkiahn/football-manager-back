@@ -35,8 +35,14 @@ public class QuaterService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 쿼터입니다."));
 
         quater.setStatus(dto.getStatus());
-        quater.setPointX(dto.getPointX());
-        quater.setPointY(dto.getPointY());
+        if (dto.getStatus() == null || dto.getStatus().equals("휴식")){
+            quater.setPointX(null);
+            quater.setPointY(null);
+        }else{
+            quater.setPointX(dto.getPointX());
+            quater.setPointY(dto.getPointY());
+        }
+
 
         return quaterMapper.toDto(quater);
     }

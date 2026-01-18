@@ -8,4 +8,5 @@ import java.util.List;
 public interface PlayersRepository extends JpaRepository<Players, Long> {
 
     List<Players> findAllByGameIdAndTeamId(Long gameId, Long teamId, Sort sort);
+    List<Players> findAllByGameIdAndMemberIdIsNull(Long gameId);
 }

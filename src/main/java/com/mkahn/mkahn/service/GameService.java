@@ -3,6 +3,8 @@ package com.mkahn.mkahn.service;
 import com.mkahn.mkahn.config.UserContext;
 import com.mkahn.mkahn.domain.game.Game;
 import com.mkahn.mkahn.domain.game.GameRepository;
+import com.mkahn.mkahn.domain.players.Players;
+import com.mkahn.mkahn.domain.players.PlayersRepository;
 import com.mkahn.mkahn.dto.GameDto;
 import com.mkahn.mkahn.mapper.GameMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.List;
 public class GameService {
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
+    private final PlayersRepository playersRepository;
 
     public List<GameDto> list(){
         Sort sort = Sort.by(Sort.Direction.DESC, "matchDt");
@@ -55,6 +58,17 @@ public class GameService {
         game.setTeamAScore(gameDto.getTeamAScore());
         game.setTeamBScore(gameDto.getTeamBScore());
         game.setStatus(gameDto.getStatus());
+
+        if("완료".equals(gameDto.getStatus())) {
+            List<Players> mercenaries =
+                    playersRepository.findAllByGameIdAndMemberIdIsNull(gameId);
+
+            for (Players player : mercenaries) {
+                player.setName("용병");
+                playersRepository.save(player);
+            }
+            // save 호출 안 해도 @Transactional + dirty checking 으로 반영됨
+        }
 
         Game savedGame = gameRepository.save(game);
         return gameMapper.convertToDto(savedGame);
