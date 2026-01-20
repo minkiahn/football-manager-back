@@ -63,6 +63,9 @@ public class MemberService {
      */
     @Transactional
     public void delete(Long id) {
-        memberRepository.deleteById(id);
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
+        member.setStatus("삭제");
+        memberRepository.save(member);
     }
 }
