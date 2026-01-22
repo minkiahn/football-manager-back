@@ -5,6 +5,27 @@
 
 docker run --name mkahn-mysql -e MYSQL_ROOT_PASSWORD=1234qwer -e MYSQL_DATABASE=mkahnDB -e MYSQL_USER=mkahn -e MYSQL_PASSWORD=1234qwer -p 3306:3306 -d mysql:8.0
 
+
+--- ec2
+-- Swap 메모리 추가
+-- 볼륨마운트
+sudo mkdir -p /data/mysql
+sudo chown -R 999:999 /data/mysql
+
+docker run \
+--name mkahn-mysql \
+-e MYSQL_ROOT_PASSWORD=1234qwer \
+-e MYSQL_DATABASE=mkahnDB \
+-e MYSQL_USER=mkahn \
+-e MYSQL_PASSWORD=1234qwer \
+-p 3306:3306 \
+--memory=512m \
+--memory-swap=512m \
+--restart=always \
+-v /data/mysql:/var/lib/mysql \
+-d mysql:8.0 \
+--innodb-buffer-pool-size=256M
+
 docker exec -it mkahn-mysql mysql -u mkahn -p
 create database mkahnDB;
 create user 'mkahn'@'%' identified by '1234qwer';

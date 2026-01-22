@@ -52,7 +52,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8087")  // 허용할 주소 및 포트
+                .allowedOrigins("http://localhost:8087", "http://footballposition.com")  // 허용할 주소 및 포트
                 .allowedMethods(HttpMethod.GET.name()
                         , HttpMethod.HEAD.name()
                         , HttpMethod.POST.name()

@@ -11,6 +11,7 @@ spring:
 
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy #쿼리 파라메터를 보기 위해 사용
     url: jdbc:log4jdbc:mysql://127.0.0.1:3306/mkahnDB?serverTimezone=Asia/Seoul&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8
+    #url: jdbc:log4jdbc:mysql://43.202.159.31:3306/mkahnDB?serverTimezone=Asia/Seoul&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8
 
     username: mkahn
     password: 1234qwer
