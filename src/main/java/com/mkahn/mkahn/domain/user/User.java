@@ -22,8 +22,8 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @ManyToOne(optional = true)
     @JoinColumn(name = "teamId")
-    @ManyToOne
     private Team team;
 
     @Column(nullable = false)

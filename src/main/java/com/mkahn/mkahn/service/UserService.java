@@ -27,7 +27,9 @@ public class UserService {
     public UserDto save(UserDto userDto) {
         userDto.setPwd(bCryptPasswordEncoder.encode(userDto.getPwd()));
         userDto.setStatus(EnumType.UserStatus.REQUEST.getName());
-        Optional<User> optUser = Optional.of(userRepository.save(userMapper.convertToEntity(userDto)));
+        User user  = userMapper.convertToEntity(userDto);
+        user.setTeam(null);
+        Optional<User> optUser = Optional.of(userRepository.save(user));
         //String token = jwtService.createAccessToken(optUser.get().getUserId(), optUser.get().getNickName());
         //optUser.get().updateToken(token);
         return userMapper.convertToDto(optUser.orElse(null));
