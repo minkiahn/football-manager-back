@@ -44,6 +44,7 @@ public class GameService {
         game.setTime(gameDto.getTime());
         game.setPlace(gameDto.getPlace());
         game.setType(gameDto.getType());
+        game.setVsName(gameDto.getVsName());
         game.setPlayersCountType(gameDto.getPlayersCountType());
 
         Game savedGame = gameRepository.save(game);
