@@ -32,7 +32,7 @@ public class GameStatRepository {
                         "       ( " +
                         "           SELECT COUNT(*) " +
                         "           FROM game g2 " +
-                        "           WHERE g2.status IN ('정상','완료') " +
+                        "           WHERE g2.status IN ('완료') " +
                         "             AND g2.team_id = :teamId " +
                         "             AND g2.match_dt LIKE CONCAT(:year,'-%') " +
                         "       ) AS total_game_cnt, " +
@@ -41,7 +41,7 @@ public class GameStatRepository {
                         "           ( " +
                         "               SELECT COUNT(*) " +
                         "               FROM game g2 " +
-                        "               WHERE g2.status IN ('정상','완료') " +
+                        "               WHERE g2.status IN ('완료') " +
                         "                 AND g2.team_id = :teamId " +
                         "                 AND g2.match_dt LIKE CONCAT(:year,'-%') " +
                         "           ) * 100, 0 " +
@@ -49,7 +49,7 @@ public class GameStatRepository {
                         "   FROM players p " +
                         "   JOIN game g ON g.id = p.game_id " +
                         "   WHERE p.status = '정상' " +
-                        "     AND g.status IN ('정상','완료') " +
+                        "     AND g.status IN ('완료') " +
                         "     AND g.team_id = :teamId " +
                         "     AND g.match_dt LIKE CONCAT(:year,'-%') " +
                         "     AND p.member_id IS NOT NULL " +
