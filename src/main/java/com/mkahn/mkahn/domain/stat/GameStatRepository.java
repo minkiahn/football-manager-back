@@ -90,7 +90,7 @@ public class GameStatRepository {
                         "   FROM players p " +
                         "   JOIN game g ON g.id = p.game_id " +
                         "   WHERE p.status = '정상' " +
-                        "     AND g.status IN ('정상','완료') " +
+                        "     AND g.status IN ('완료') " +
                         "     AND g.team_id = :teamId " +
                         "     AND g.match_dt LIKE CONCAT(:year,'-%') " +
                         "     AND p.member_id IS NOT NULL " +
@@ -120,7 +120,7 @@ public class GameStatRepository {
                         "   FROM players p " +
                         "   JOIN game g ON g.id = p.game_id " +
                         "   WHERE p.status = '정상' " +
-                        "     AND g.status IN ('정상','완료') " +
+                        "     AND g.status IN ('완료') " +
                         "     AND g.team_id = :teamId " +
                         "     AND g.match_dt LIKE CONCAT(:year,'-%') " +
                         "     AND p.member_id IS NOT NULL " +
