@@ -57,7 +57,7 @@ public class QuaterService {
             QuaterDto quaterDto = new QuaterDto();
             quaterDto.setPlayerId(playerId);
             quaterDto.setQuarterNo(i);
-            quaterDto.setStatus("휴식");
+            quaterDto.setStatus("출전");
 
             Quater quater = quaterMapper.toEntity(quaterDto);
             quaterRepository.save(quater);
