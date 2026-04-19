@@ -16,7 +16,7 @@ public class GameStatRepository {
     private final EntityManager em;
 
     /* ================= 참석율 ================= */
-    public List<AttendStatDto> attendStats(Long teamId, int year) {
+    public List<AttendStatDto> attendStats(Long teamId, int year, String month) {
 
         String sql =
                 "SELECT " +
@@ -34,7 +34,7 @@ public class GameStatRepository {
                         "           FROM game g2 " +
                         "           WHERE g2.status IN ('완료') " +
                         "             AND g2.team_id = :teamId " +
-                        "             AND g2.match_dt LIKE CONCAT(:year,'-%') " +
+                        "             AND g2.match_dt LIKE CONCAT(:year,'-',:month,'%') " +
                         "       ) AS total_game_cnt, " +
                         "       ROUND( " +
                         "           COUNT(DISTINCT p.game_id) / " +
@@ -43,7 +43,7 @@ public class GameStatRepository {
                         "               FROM game g2 " +
                         "               WHERE g2.status IN ('완료') " +
                         "                 AND g2.team_id = :teamId " +
-                        "                 AND g2.match_dt LIKE CONCAT(:year,'-%') " +
+                        "                 AND g2.match_dt LIKE CONCAT(:year,'-',:month,'%') " +
                         "           ) * 100, 0 " +
                         "       ) AS attend_ratio " +
                         "   FROM players p " +
@@ -51,7 +51,7 @@ public class GameStatRepository {
                         "   WHERE p.status = '정상' " +
                         "     AND g.status IN ('완료') " +
                         "     AND g.team_id = :teamId " +
-                        "     AND g.match_dt LIKE CONCAT(:year,'-%') " +
+                        "     AND g.match_dt LIKE CONCAT(:year,'-',:month,'%') " +
                         "     AND p.member_id IS NOT NULL " +
                         "   GROUP BY p.member_id, p.name " +
                         ") t " +
@@ -60,11 +60,12 @@ public class GameStatRepository {
         return em.createNativeQuery(sql, "AttendStatMapping")
                 .setParameter("teamId", teamId)
                 .setParameter("year", year)
+                .setParameter("month", month)
                 .getResultList();
     }
 
     /* ================= 승점 ================= */
-    public List<PointStatDto> pointStats(Long teamId, int year) {
+    public List<PointStatDto> pointStats(Long teamId, int year, String month) {
 
         String sql =
                 "SELECT " +
@@ -85,14 +86,14 @@ public class GameStatRepository {
                         "       SUM(CASE " +
                         "           WHEN p.teamABType='A' AND g.teamAScore > g.teamBScore THEN 3 " +
                         "           WHEN p.teamABType='B' AND g.teamBScore > g.teamAScore THEN 3 " +
-                        "           WHEN g.teamAScore = g.teamBScore THEN 2 " +
-                        "           ELSE 1 END) AS total_point " +
+                        "           WHEN g.teamAScore = g.teamBScore THEN 1 " +
+                        "           ELSE 0 END) AS total_point " +
                         "   FROM players p " +
                         "   JOIN game g ON g.id = p.game_id " +
                         "   WHERE p.status = '정상' " +
                         "     AND g.status IN ('완료') " +
                         "     AND g.team_id = :teamId " +
-                        "     AND g.match_dt LIKE CONCAT(:year,'-%') " +
+                        "     AND g.match_dt LIKE CONCAT(:year,'-',:month,'%') " +
                         "     AND p.member_id IS NOT NULL " +
                         "   GROUP BY p.member_id, p.name " +
                         ") t " +
@@ -101,11 +102,12 @@ public class GameStatRepository {
         return em.createNativeQuery(sql, "PointStatMapping")
                 .setParameter("teamId", teamId)
                 .setParameter("year", year)
+                .setParameter("month", month)
                 .getResultList();
     }
 
     /* ================= 공격 ================= */
-    public List<AttackStatDto> attackStats(Long teamId, int year) {
+    public List<AttackStatDto> attackStats(Long teamId, int year, String month) {
 
         String sql =
                 "SELECT " +
@@ -122,7 +124,7 @@ public class GameStatRepository {
                         "   WHERE p.status = '정상' " +
                         "     AND g.status IN ('완료') " +
                         "     AND g.team_id = :teamId " +
-                        "     AND g.match_dt LIKE CONCAT(:year,'-%') " +
+                        "     AND g.match_dt LIKE CONCAT(:year,'-',:month,'%') " +
                         "     AND p.member_id IS NOT NULL " +
                         "   GROUP BY p.member_id, p.name " +
                         ") t " +
@@ -131,6 +133,7 @@ public class GameStatRepository {
         return em.createNativeQuery(sql, "AttackStatMapping")
                 .setParameter("teamId", teamId)
                 .setParameter("year", year)
+                .setParameter("month", month)
                 .getResultList();
     }
 }

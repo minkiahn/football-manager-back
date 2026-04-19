@@ -20,17 +20,17 @@ public class GameStatController {
     private final GameStatService service;
 
     @GetMapping("/attend")
-    public List<AttendStatDto> attend(@RequestParam int year) {
-        return service.attend(year);
+    public List<AttendStatDto> attend(@RequestParam int year, @RequestParam String month) {
+        return service.attend(year, month);
     }
 
     @GetMapping("/point")
-    public List<PointStatDto> point(@RequestParam int year) {
-        return service.point(year);
+    public List<PointStatDto> point(@RequestParam int year, @RequestParam String month) {
+        return service.point(year, month);
     }
 
     @GetMapping("/attack")
-    public List<AttackStatDto> attack(@RequestParam int year) {
-        return service.attack(year);
+    public List<AttackStatDto> attack(@RequestParam int year, @RequestParam String month) {
+        return service.attack(year, month);
     }
 }
